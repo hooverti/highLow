@@ -11,6 +11,7 @@ int main()
 	string player_name;
 	char accept_game;
 	int guess;
+	int attempt = 0;
 
 	srand(time(NULL));
 	int secret_number = rand() % 20 + 1;
@@ -30,17 +31,25 @@ int main()
 			system("pause");
 			system("cls");
 			cout << "Okay got it.  Try to guess my number and I'll tell you if you're too high or too low.\n";
+			cout << "But be careful. You only get 3 guesses.\n";
 			//loops to let user continue guessing. need to figure out how to limit guess number to 3.
 			while (!stop) {
 				cin >> guess;
 				if (guess < secret_number) {
-					cout << "Oops, number is too low. Try again.\n";
+					cout << "Oops, number is too low.\n";
+					attempt = attempt + 1;
 				}
 				if (guess > secret_number) {
-					cout << "Oops, number is too high. Try again.\n";
+					cout << "Oops, number is too high.\n";
+					attempt = attempt + 1;
 				}
 				if (guess == secret_number) {
-					cout << "Got it!\n";
+					cout << "Got it! You win!\n";
+					stop = true;
+				}
+				if (attempt == 3) {
+					cout << "\n";
+					cout << "Too many guesses, " << player_name << " . You lose.\n";
 					stop = true;
 				}
 			}
